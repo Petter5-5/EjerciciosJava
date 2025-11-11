@@ -8,13 +8,16 @@ public class Ejercicio4_1_11
     {
         Scanner sc = new Scanner(System.in);
         
-        String numero;
-        int cantidadNumero;
+        int cantidadNumero = 0, numero;
         
         System.out.println("Dime un numero");
-        numero = sc.nextLine();
+        numero = sc.nextInt();
         
-        cantidadNumero = numero.length();
-        System.out.printf("El numero tiene %d digitos %n", cantidadNumero);
+        while(numero != 0)
+        {
+            numero = numero / 10;
+            cantidadNumero++;
+        }
+        System.out.println(cantidadNumero);
     }
 }
