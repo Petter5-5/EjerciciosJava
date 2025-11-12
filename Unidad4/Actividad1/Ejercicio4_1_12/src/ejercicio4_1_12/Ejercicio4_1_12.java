@@ -8,19 +8,29 @@ public class Ejercicio4_1_12
     {
         Scanner sc = new Scanner(System.in);
         
-        String numero;
-        int numeroPar = 0, numeroImpar = 0;
+        int numeroPar = 0, numeroImpar = 0, numero, separado;
         
         System.out.println("Dime un numero");
-        numero = sc.nextLine();
+        numero = sc.nextInt();
         
-        for (int i = 0; i <= numero.length() - 1; i++)
+        
+        while (numero != 0)
         {
-            if(numero.charAt(i) == '1' || numero.charAt(i) == '3' || numero.charAt(i) == '5' || numero.charAt(i) == '7' || numero.charAt(i) == '9')
+           
+            separado = numero % 10;
+            numero = numero / 10;
+            
+            if(separado == 1 || separado == 3 || separado == 5 || separado == 7 || separado == 9)
+            {
                 numeroImpar++;
+            }
             else
+            {
                 numeroPar++;
+            }
         }
+        
+        
         System.out.printf("El numero tiene %d digitos pares %n", numeroPar);
         System.out.printf("El numero tiene %d digitos impares %n", numeroImpar);
     }
