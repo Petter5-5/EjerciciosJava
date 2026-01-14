@@ -10,34 +10,36 @@ public class Proyecto
 {
     public static void main(String[] args) throws InterruptedException
     {
-        Scanner sc = new Scanner(System.in);
+        /*Scanner sc = new Scanner(System.in);
         
         String[] palabras = Motor.libreriaPalabras(); 
         String palabra = Motor.laPalabra(palabras);
         
         char[] letras = Motor.rellenar(palabra);
-        char letraAdv;
+        char letraAdv = ' ';
         char[] letrasFalladas = new char[6];
         char[] relevado = Motor.revelador(letras);
         
         int fallos = 0;
-        int vida = 6;
+        int vida = 7;
         
         boolean terminado = false;
         
-        Dibujado.Ejecutor(fallos);
-        
-        while(!terminado)
+        while(!terminado || vida != 6)
         {
-            terminado = Motor.terminado(relevado);
-            System.out.println("Pon una letra");
-            letraAdv = sc.next().charAt(0);
-            System.out.println("\n");
+            Dibujado.limpiarPantalla(); 
+            Dibujado.Ejecutor(fallos);
+            
             Motor.adivinar(letras, relevado, letraAdv);
             System.out.println();
+            
             fallos = LetrasFalladas.Ejecutor(letras, letrasFalladas, letraAdv, fallos, vida);
-            Dibujado.Ejecutor(fallos);
-        }
-        //Menu.dibujarMenu();
+            
+            System.out.print("Elige un letra: ");
+            letraAdv = sc.next().charAt(0);
+            terminado = Motor.terminado(relevado);
+            
+        }*/
+        Menu.dibujarMenu();
     }
 }

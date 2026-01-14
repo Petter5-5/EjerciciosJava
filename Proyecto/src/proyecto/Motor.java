@@ -23,7 +23,7 @@ public class Motor {
     
     public static String laPalabra(String[] palabras)
     {
-        int n = (int) Math.random() * palabras.length;
+        int n = (int) (Math.random() * palabras.length);
         String palabra = palabras[n];//Elije que palabra va a ser
         return palabra;
     }
@@ -42,7 +42,7 @@ public class Motor {
         {
           revelado[i] = letras[i]; //Revela el "_" y lo combierte en la letra que es
         }
-        System.out.print(revelado[i] + " "); //Imprime la palabra
+        System.out.printf("\u001B[32m%s \u001B[0m", revelado[i]); //Imprime la palabra
       }
     }
     
@@ -50,12 +50,13 @@ public class Motor {
     {
         boolean terminado = true;
         
-        for(int i = 0; i < revelador.length; i++)
+        for(int i = 0; i < revelador.length - 1; i++)
         {
             if(revelador[i] == '_')
+            {
                 terminado = false;
+            }
         }
-        
         return terminado;
     }
 }
