@@ -16,16 +16,12 @@ public class AireAcondicionado
     
     public void subir()
     {
-        if(t_Actual == t_Máxima)
-            t_Actual = t_Máxima;
-        else
+        if(t_Actual != t_Máxima)
             t_Actual++;
     }
     public void bajar()
     {
-        if(t_Actual == t_Mínima)
-            t_Actual = t_Mínima;
-        else
+        if(t_Actual != t_Mínima)
             t_Actual--;
     }
     
