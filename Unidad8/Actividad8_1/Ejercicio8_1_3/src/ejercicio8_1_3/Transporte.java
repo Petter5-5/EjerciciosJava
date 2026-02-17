@@ -13,7 +13,7 @@ public class Transporte
     
     public double calcularTiempo(double distanciaKm)
     {
-        return Math.floor(distanciaKm / (velocidad * 60) * 100) / 100;
+        return Math.floor(distanciaKm / (velocidad / 60) * 100) / 100;
     }
     
     @Override
