@@ -5,6 +5,22 @@ import java.util.Scanner;
 
 public class Caso_Practico_Calculadora 
 {
+    public static void validar(String operador)
+    {
+        boolean resultado;
+        
+        switch(operador)
+        {
+            case "*", "/", "+", "-" -> resultado = true;
+            default -> resultado = false;
+        } 
+        
+        if(!resultado)
+        {
+            throw new IllegalArgumentException("Operador no valido");
+        }
+    }
+    
     public static int operar(String operador, int a, int b)
     {
         double resultado = 0;
@@ -49,6 +65,7 @@ public class Caso_Practico_Calculadora
                 sc.nextLine();
                 System.out.println("Introduce el operador: ");
                 operador = sc.nextLine();
+                validar(operador);
                 System.out.println("El resultado: " + operar(operador, a, b));
             }catch(ArithmeticException e)
             {
@@ -57,6 +74,10 @@ public class Caso_Practico_Calculadora
             }catch(InputMismatchException e)
             {
                 System.out.println("Datos introducidos incorrectos");
+                error = true;
+            }catch(IllegalArgumentException e)
+            {
+                System.out.println("\033[0;1mX \033[0m" + e.getMessage());
                 error = true;
             }finally
             {
