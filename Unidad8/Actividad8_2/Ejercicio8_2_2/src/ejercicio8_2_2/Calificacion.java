@@ -29,7 +29,7 @@ public class Calificacion
 
     @Override
     public String toString() {
-        return "Calificacion{" + "asignatura=" + asignatura + ", nota=" + nota + '}';
+        return asignatura + ": " + nota;
     }
     
 }

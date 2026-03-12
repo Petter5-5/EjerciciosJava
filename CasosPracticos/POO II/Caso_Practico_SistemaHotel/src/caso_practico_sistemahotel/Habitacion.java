@@ -28,4 +28,6 @@ public class Habitacion
     {
         ocupada = false;
     }
+    
+    
 }
