@@ -5,6 +5,6 @@ public class HabitacionNoExisteException extends RuntimeException
 
     public HabitacionNoExisteException(int numeroHabitacion) 
     {
-        super("Numero de habitacion: " + numeroHabitacion + " no existe");
+        super("❌ La habitación " + numeroHabitacion + " no existe en este hotel.");
     }
 }

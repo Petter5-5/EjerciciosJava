@@ -15,35 +15,59 @@ public class Hotel
         habitaciones.add(new Habitacion(105));
     }
 
-    public void reservar(int numero)
+    public Habitacion buscarHabitacion(int numero)
     {
         boolean encontrada = false;
         int contador = 0;
+        Habitacion h = null;
+        
         while(!encontrada && contador < habitaciones.size())
         {
             if(habitaciones.get(contador).getNumero() == numero)
             {
-                habitaciones.get(contador).reserva();
+                h = habitaciones.get(contador);
                 encontrada = true;
-                System.out.println("✅ Habitación " + numero + " reservada correctamente.");
             }
             contador++;
         }
+        
+        if(h == null)
+        {
+            throw new HabitacionNoExisteException(numero);
+        }
+        
+        return h;
     }
     
-    public void cancelar(int numero) // revisa este codigo
+    public void reservar(int numero)
     {
-        boolean encontrada = false;
-        int contador = 0;
-        while(!encontrada && contador < habitaciones.size())
+        Habitacion h = buscarHabitacion(numero);
+        if(h.isOcupada())
         {
-            if(habitaciones.get(contador).getNumero() == numero)
-            {
-                habitaciones.get(contador).reserva();
-                encontrada = true;
-                System.out.println("✅ Habitación " + numero + " reservada correctamente.");
-            }
-            contador++;
+            throw new HabitacionNoDisponibleException(numero);
         }
+        h.reserva();
+        System.out.println("✅ Habitación " + numero + " reservada correctamente.");
+    }
+    
+    public void cancelar(int numero)
+    {
+        Habitacion h = buscarHabitacion(numero);
+        if(!h.isOcupada())
+        {
+            throw new ReservaNoEncontradaException(numero);
+        }
+        h.liberar();
+        System.out.println("✅ Reserva de habitación " + numero + " cancelada correctamente.");
+    }
+    
+    public void checkIn(int numero)
+    {
+        Habitacion h = buscarHabitacion(numero);
+        if(!h.isOcupada())
+        {
+            throw new ReservaNoEncontradaException(numero);
+        }
+        System.out.println("✅ Check-in realizado en habitación " + numero + ". ¡Bienvenido!");
     }
 }

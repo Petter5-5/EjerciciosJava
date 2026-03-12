@@ -5,7 +5,7 @@ public class HabitacionNoDisponibleException extends RuntimeException
 
     public HabitacionNoDisponibleException(int numeroHabitacion)
     {
-        super("Numero de habitacion: " + numeroHabitacion + " no disponible");
+        super("❌ La habitación " + numeroHabitacion + " ya está ocupada.");
     }
     
 }
