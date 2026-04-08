@@ -1,0 +1,9 @@
+========================
+RANKING TOP JUGADORES
+========================
+JUGADOR NIVEL PUNTOS
+-------------------------
+Marta Ruiz 7 21000
+Luis Perez 3 8750
+Ana Garcia 5 12
+========================
