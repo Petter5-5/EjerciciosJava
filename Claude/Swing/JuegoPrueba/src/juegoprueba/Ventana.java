@@ -4,11 +4,14 @@ import javax.swing.*;
 
 public class Ventana extends JFrame 
 {
+    private static final int ancho = 1000;
+    private static final int alto = 800;
+    
     public Ventana()
     {
         //Ventana
         setTitle("LOCURAAAAAAA");
-        setSize(1000,800);
+        setSize(ancho,alto);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Dibujado
@@ -19,5 +22,13 @@ public class Ventana extends JFrame
         addKeyListener(new Controles(sprite));
         
         setVisible(true);
+    }
+
+    public static int getAncho() {
+        return ancho;
+    }
+
+    public static int getAlto() {
+        return alto;
     }
 }
