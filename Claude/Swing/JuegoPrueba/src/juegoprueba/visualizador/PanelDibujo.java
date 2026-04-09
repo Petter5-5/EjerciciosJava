@@ -1,5 +1,10 @@
-package juegoprueba;
+package juegoprueba.visualizador;
 
+import juegoprueba.entidades.enemigo.Enemigo;
+import juegoprueba.entidades.enemigo.Disparo;
+import juegoprueba.entidades.Hitbox;
+import juegoprueba.entidades.jugador.Jugador1;
+import juegoprueba.entidades.jugador.Jugador2;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

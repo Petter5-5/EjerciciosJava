@@ -1,6 +1,7 @@
-package juegoprueba;
+package juegoprueba.entidades.enemigo;
 
 import java.awt.*;
+import juegoprueba.visualizador.Ventana;
 
 public class Enemigo
 {

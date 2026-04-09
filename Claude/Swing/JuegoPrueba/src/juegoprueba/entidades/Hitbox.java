@@ -1,7 +1,9 @@
-package juegoprueba;
+package juegoprueba.entidades;
 
+import juegoprueba.entidades.jugador.Jugador;
 import java.awt.*;
 import java.util.ArrayList;
+import juegoprueba.entidades.enemigo.Disparo;
 
 public class Hitbox 
 {

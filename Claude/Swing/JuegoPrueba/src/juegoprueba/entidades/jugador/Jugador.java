@@ -1,4 +1,4 @@
-package juegoprueba;
+package juegoprueba.entidades.jugador;
 
 import java.awt.*;
 

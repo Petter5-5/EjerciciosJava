@@ -1,5 +1,6 @@
-package juegoprueba;
+package juegoprueba.controles;
 
+import juegoprueba.visualizador.PanelDibujo;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.Set;

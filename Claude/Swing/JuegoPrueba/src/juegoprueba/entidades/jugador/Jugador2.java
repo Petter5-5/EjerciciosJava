@@ -1,6 +1,7 @@
-package juegoprueba;
+package juegoprueba.entidades.jugador;
 
 import java.awt.*;
+import juegoprueba.visualizador.Ventana;
 
 public class Jugador2 extends Jugador
 {

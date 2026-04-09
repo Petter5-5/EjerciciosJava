@@ -1,6 +1,8 @@
-package juegoprueba;
+package juegoprueba.entidades.enemigo;
 
+import juegoprueba.entidades.jugador.Jugador;
 import java.awt.*;
+import juegoprueba.visualizador.Ventana;
 
 public class Disparo 
 {

@@ -1,6 +1,7 @@
-package juegoprueba;
+package juegoprueba.visualizador;
 
 import javax.swing.*;
+import juegoprueba.controles.Controles;
 
 public class Ventana extends JFrame 
 {
