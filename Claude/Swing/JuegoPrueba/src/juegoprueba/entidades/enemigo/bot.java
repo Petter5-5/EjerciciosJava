@@ -4,22 +4,35 @@ import juegoprueba.entidades.jugador.Jugador;
 import java.awt.*;
 import juegoprueba.visualizador.Ventana;
 
-public class Disparo 
+public class Bot extends Enemigo
 {
-    private static int ancho = 26;
-    private static int alto = 26;
-    private static int x = (Ventana.getAncho() / 2) - 37;
-    private static int y = (Ventana.getAlto() / 2) - 37;
+    private int ancho = 26;
+    private int alto = 26;
+    private int x = (Ventana.getAncho() / 2) - 37;
+    private int y = (Ventana.getAlto() / 2) - 37;
     
-    public static void dibujar(Graphics g)
+    public Bot()
+    {
+        
+    }
+    
+    public Bot(int x ,int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+    
+    @Override
+    public void dibujar(Graphics g)
     {
         g.setColor(Color.BLACK);
         g.fillRect(x, y, ancho, alto);
     }
 
-    public static void actualizar(Jugador j1,Jugador j2)
+    @Override
+    public void actualizar(Jugador j1,Jugador j2)
     {
-        int movimiento = 2;
+        int movimiento = 4;
         
         int cx = x + ancho / 2;
         int cy = y + alto / 2;
@@ -63,27 +76,33 @@ public class Disparo
         
     }
     
-    public static void setX(int xE) {
+    @Override
+    public void setX(int xE) {
         y = xE;
     }
 
-    public static void setY(int yE) {
+    @Override
+    public void setY(int yE) {
         x = yE;
     }
 
-    public static int getX() {
+    @Override
+    public int getX() {
         return x;
     }
 
-    public static int getY() {
+    @Override
+    public int getY() {
         return y;
     }
 
-    public static int getAncho() {
+    @Override
+    public int getAncho() {
         return ancho;
     }
 
-    public static int getAlto() {
+    @Override
+    public int getAlto() {
         return alto;
     }
 

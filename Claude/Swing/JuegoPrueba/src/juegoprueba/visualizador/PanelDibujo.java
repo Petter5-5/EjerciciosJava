@@ -1,7 +1,7 @@
 package juegoprueba.visualizador;
 
 import juegoprueba.entidades.enemigo.Enemigo;
-import juegoprueba.entidades.enemigo.Disparo;
+import juegoprueba.entidades.enemigo.Bot;
 import juegoprueba.entidades.Hitbox;
 import juegoprueba.entidades.jugador.Jugador1;
 import juegoprueba.entidades.jugador.Jugador2;
@@ -14,13 +14,18 @@ public class PanelDibujo extends JPanel
 {
     private Jugador1 jugador1;
     private Jugador2 jugador2;
-    private Disparo disparo;
+    private ArrayList<Bot> enemigos;
     
     public PanelDibujo()
     {
         this.jugador1 = new Jugador1();
         this.jugador2 = new Jugador2();
-        this.disparo = new Disparo();
+        this.enemigos = new ArrayList<>();
+        
+        enemigos.add(new Bot());
+        enemigos.add(new Bot(500, 500));
+        enemigos.add(new Bot(300, 400));
+        enemigos.add(new Bot(200, 700));
     }
     
     @Override
@@ -34,9 +39,10 @@ public class PanelDibujo extends JPanel
         if(!jugador2.isDeath())
             jugador2.dibujar(g);
         
-        
-        Enemigo.dibujar(g);
-        Disparo.dibujar(g);
+        for(Bot b : enemigos)
+        {
+            b.dibujar(g);
+        }
     }
     
     public void moverJugador1(int dx, int dy)
@@ -45,7 +51,7 @@ public class PanelDibujo extends JPanel
         jugador1.setX((jugador1.getX() + dx));
         jugador1.isOut(Ventana.getAncho(), Ventana.getAlto());
             
-        if(Hitbox.colision(jugador1, jugador2))
+        if(Hitbox.colision(jugador1, jugador2) && jugador1.isDeath())
         {
             jugador1.setY((jugador1.getY() - dy));
             jugador1.setX((jugador1.getX() - dx)); 
@@ -59,7 +65,7 @@ public class PanelDibujo extends JPanel
         jugador2.setX((jugador2.getX() + dx));
         jugador2.isOut(Ventana.getAncho(), Ventana.getAlto());
         
-        if(Hitbox.colision(jugador2, jugador1))
+        if(Hitbox.colision(jugador2, jugador1) && jugador2.isDeath())
         {
             jugador2.setY((jugador2.getY() - dy));
             jugador2.setX((jugador2.getX() - dx)); 
@@ -69,13 +75,15 @@ public class PanelDibujo extends JPanel
     
     public void actualizarDisparo()
     {
-        Disparo.actualizar(jugador1, jugador2);
+        for(Bot b : enemigos)
+        {
+            b.actualizar(jugador1, jugador2);
         
-        if(Hitbox.colision(disparo, jugador1))
-            jugador1.setDeath(true);
-        if(Hitbox.colision(disparo, jugador2))
-            jugador2.setDeath(true);
-        
+            if(Hitbox.colision(b, jugador1))
+                jugador1.setDeath(true);
+            if(Hitbox.colision(b, jugador2))
+                jugador2.setDeath(true);
+        }
         repaint();
     }
     

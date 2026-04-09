@@ -1,9 +1,9 @@
 package juegoprueba.entidades;
 
-import juegoprueba.entidades.jugador.Jugador;
+import juegoprueba.entidades.jugador.*;
 import java.awt.*;
 import java.util.ArrayList;
-import juegoprueba.entidades.enemigo.Disparo;
+import juegoprueba.entidades.enemigo.Bot;
 
 public class Hitbox 
 {
@@ -61,7 +61,7 @@ public class Hitbox
     }
     
     // ENIMIGOOOOOOOOOOOOOOOOSSSSSSSSSSSSSS
-    public static boolean colision(Disparo d, Jugador j2)
+    public static boolean colision(Bot d, Jugador j2)
     {
         boolean resultado = false;
         
@@ -80,7 +80,7 @@ public class Hitbox
         return resultado;
     }
     
-    public static ArrayList<Point> getPuntosMuestra(Disparo d)
+    public static ArrayList<Point> getPuntosMuestra(Bot d)
     {
         int x = d.getX();
         int y = d.getY();
@@ -106,7 +106,7 @@ public class Hitbox
         return puntos;
     }
     
-    public static boolean puntoEnCuadrado(int px, int py, Disparo d)
+    public static boolean puntoEnCuadrado(int px, int py, Bot d)
     {
         return px >= d.getX() &&
                px <= d.getX() + d.getAncho() &&
