@@ -2,46 +2,84 @@ package juegoprueba;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class PanelDibujo extends JPanel
 {
-    int y = 100;
-    int x = 100;
-    int xE = Disparo.getxE();
-    int yE = Disparo.getyE();
+    private Jugador1 jugador1;
+    private Jugador2 jugador2;
+    private Disparo disparo;
+    
+    public PanelDibujo()
+    {
+        this.jugador1 = new Jugador1();
+        this.jugador2 = new Jugador2();
+        this.disparo = new Disparo();
+    }
     
     @Override
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         
-        g.setColor(Color.BLUE);
-        g.fillRect(x, y, 50, 50);
+        if(!jugador1.isDeath())
+            jugador1.dibujar(g);
+        
+        if(!jugador2.isDeath())
+            jugador2.dibujar(g);
+        
         
         Enemigo.dibujar(g);
+        Disparo.dibujar(g);
     }
     
-    public void mover(int dx, int dy)
+    public void moverJugador1(int dx, int dy)
     {
-        y += dy;
-        x += dx;
+        jugador1.setY((jugador1.getY() + dy));
+        jugador1.setX((jugador1.getX() + dx));
+        jugador1.isOut(Ventana.getAncho(), Ventana.getAlto());
+            
+        if(Hitbox.colision(jugador1, jugador2))
+        {
+            jugador1.setY((jugador1.getY() - dy));
+            jugador1.setX((jugador1.getX() - dx)); 
+        }
+        repaint();
+    }
+    
+    public void moverJugador2(int dx, int dy)
+    {
+        jugador2.setY((jugador2.getY() + dy));
+        jugador2.setX((jugador2.getX() + dx));
+        jugador2.isOut(Ventana.getAncho(), Ventana.getAlto());
+        
+        if(Hitbox.colision(jugador2, jugador1))
+        {
+            jugador2.setY((jugador2.getY() - dy));
+            jugador2.setX((jugador2.getX() - dx)); 
+        }
+        repaint();
+    }
+    
+    public void actualizarDisparo()
+    {
+        Disparo.actualizar(jugador1, jugador2);
+        
+        if(Hitbox.colision(disparo, jugador1))
+            jugador1.setDeath(true);
+        if(Hitbox.colision(disparo, jugador2))
+            jugador2.setDeath(true);
         
         repaint();
     }
     
-    public void moverEnemigo(int dx, int dy)
-    {
-        
+
+    public Jugador1 getJugador1() {
+        return jugador1;
     }
 
-    @Override
-    public int getY() {
-        return y;
-    }
-
-    @Override
-    public int getX() {
-        return x;
+    public Jugador2 getJugador2() {
+        return jugador2;
     }
 }
