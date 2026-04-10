@@ -20,7 +20,7 @@ public class Controles implements KeyListener{
         
         //16 = 1fps, 960 = 1s
         Timer gameLoop = new Timer(16, e -> procesarMovimentos());
-        Timer balaRespwan = new Timer(9600, e -> movimientoBala());
+        Timer balaRespwan = new Timer(960, e -> movimientoBala());
         gameLoop.start();
         balaRespwan.start();
     }
@@ -68,6 +68,11 @@ public class Controles implements KeyListener{
                 sprite.moverJugador2(dx2, dy2);
         }
         
+        if(teclasPulsadas.contains(KeyEvent.VK_R))
+        {
+            sprite.getJugador1().setDeath(false);
+            sprite.getJugador2().setDeath(false);
+        }
         sprite.actualizarBala();
         sprite.actualizarDisparo();
     }

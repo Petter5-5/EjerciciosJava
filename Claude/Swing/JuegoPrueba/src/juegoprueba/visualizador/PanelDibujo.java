@@ -8,6 +8,7 @@ import juegoprueba.entidades.jugador.Jugador2;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import juegoprueba.entidades.enemigo.Bala;
 
 
@@ -97,13 +98,18 @@ public class PanelDibujo extends JPanel
     {
         for(Bot b : enemigos)
         {
-            for(Bala b2 : b.getBalas())
+            Iterator<Bala> it = b.getBalas().iterator();
+            while(it.hasNext())
             {
+                Bala b2 = it.next();
                 b2.actualizar(jugador1, jugador2);
+                if(Hitbox.colision(b2, jugador1))
+                    jugador1.setDeath(true);
+                if(Hitbox.colision(b2, jugador2))
+                    jugador2.setDeath(true);
                 if(Hitbox.isOut(Ventana.getAncho(), Ventana.getAlto(), b2.getX(), b2.getY()))
                 {
-                    System.out.println("adios");
-                    b.revomerBala(b2);
+                    it.remove();
                 }
             }
         }

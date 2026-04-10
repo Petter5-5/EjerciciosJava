@@ -30,11 +30,6 @@ public class Bot extends Enemigo
         balas.add(new Bala(x + ancho / 2, y + alto / 2));
     }
     
-    public void revomerBala(Bala b)
-    {
-        balas.remove(b);
-    }
-    
     @Override
     public void dibujar(Graphics g)
     {
