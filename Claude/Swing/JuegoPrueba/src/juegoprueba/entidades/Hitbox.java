@@ -7,6 +7,32 @@ import juegoprueba.entidades.enemigo.Bot;
 
 public class Hitbox 
 {
+    public static boolean isOut(int dx, int dy, int x, int y) {
+        
+        boolean resultado = false;
+        System.out.println(x);
+        if(x >= dx)
+        {
+            resultado = true;
+        }
+        
+        if(x <= 0)
+        {
+            resultado = true;
+        }
+        
+        if(y >= dy)
+        {
+            resultado = true;
+        }
+        
+        if(y <= 0)
+        {
+            resultado = true;
+        }
+        return resultado;
+    }
+    
     public static boolean colision(Jugador j1, Jugador j2)
     {
         boolean resultado = false;

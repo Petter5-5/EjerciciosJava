@@ -8,6 +8,7 @@ import juegoprueba.entidades.jugador.Jugador2;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import juegoprueba.entidades.enemigo.Bala;
 
 
 public class PanelDibujo extends JPanel
@@ -42,6 +43,11 @@ public class PanelDibujo extends JPanel
         for(Bot b : enemigos)
         {
             b.dibujar(g);
+                for(Bala b2 : b.getBalas())
+                {
+                    b2.dibujar(g);
+                    b2.setDibujado(true);
+                }
         }
     }
     
@@ -87,6 +93,22 @@ public class PanelDibujo extends JPanel
         repaint();
     }
     
+    public void actualizarBala()
+    {
+        for(Bot b : enemigos)
+        {
+            for(Bala b2 : b.getBalas())
+            {
+                b2.actualizar(jugador1, jugador2);
+                if(Hitbox.isOut(Ventana.getAncho(), Ventana.getAlto(), b2.getX(), b2.getY()))
+                {
+                    System.out.println("adios");
+                    b.revomerBala(b2);
+                }
+            }
+        }
+    }
+    
 
     public Jugador1 getJugador1() {
         return jugador1;
@@ -94,5 +116,9 @@ public class PanelDibujo extends JPanel
 
     public Jugador2 getJugador2() {
         return jugador2;
+    }
+
+    public ArrayList<Bot> getEnemigos() {
+        return enemigos;
     }
 }

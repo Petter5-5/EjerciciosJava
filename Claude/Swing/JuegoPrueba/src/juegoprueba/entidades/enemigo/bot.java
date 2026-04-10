@@ -2,6 +2,7 @@ package juegoprueba.entidades.enemigo;
 
 import juegoprueba.entidades.jugador.Jugador;
 import java.awt.*;
+import java.util.ArrayList;
 import juegoprueba.visualizador.Ventana;
 
 public class Bot extends Enemigo
@@ -10,16 +11,28 @@ public class Bot extends Enemigo
     private int alto = 26;
     private int x = (Ventana.getAncho() / 2) - 37;
     private int y = (Ventana.getAlto() / 2) - 37;
+    private ArrayList<Bala> balas;
     
     public Bot()
     {
-        
+        this.balas = new ArrayList<>(); 
     }
     
     public Bot(int x ,int y)
     {
         this.x = x;
         this.y = y;
+        this.balas =  new ArrayList<>(); 
+    }
+    
+    public void cargarBala()
+    {
+        balas.add(new Bala(x + ancho / 2, y + alto / 2));
+    }
+    
+    public void revomerBala(Bala b)
+    {
+        balas.remove(b);
     }
     
     @Override
@@ -32,7 +45,7 @@ public class Bot extends Enemigo
     @Override
     public void actualizar(Jugador j1,Jugador j2)
     {
-        int movimiento = 4;
+        int movimiento = 2;
         
         int cx = x + ancho / 2;
         int cy = y + alto / 2;
@@ -45,8 +58,8 @@ public class Bot extends Enemigo
         double dist1 = Math.pow(cx - cx1, 2) + Math.pow(cy - cy1, 2);
         double dist2 = Math.pow(cx - cx2, 2) + Math.pow(cy - cy2, 2);
         
-        int targetX = 0;
-        int targetY = 0;
+        int targetX;
+        int targetY;
         
         if(j1.isDeath())
         {
@@ -106,4 +119,7 @@ public class Bot extends Enemigo
         return alto;
     }
 
+    public ArrayList<Bala> getBalas() {
+        return balas;
+    }
 }

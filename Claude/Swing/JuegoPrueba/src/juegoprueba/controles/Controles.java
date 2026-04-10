@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.Set;
 import java.util.HashSet;
+import juegoprueba.entidades.enemigo.Bot;
 
 public class Controles implements KeyListener{
     
@@ -17,8 +18,19 @@ public class Controles implements KeyListener{
     {
         this.sprite = sprite;
         
+        //16 = 1fps, 960 = 1s
         Timer gameLoop = new Timer(16, e -> procesarMovimentos());
+        Timer balaRespwan = new Timer(9600, e -> movimientoBala());
         gameLoop.start();
+        balaRespwan.start();
+    }
+    
+    private void movimientoBala()
+    {
+        for(Bot b : sprite.getEnemigos())
+        {
+            b.cargarBala();
+        }
     }
     
     private void procesarMovimentos() 
@@ -56,7 +68,7 @@ public class Controles implements KeyListener{
                 sprite.moverJugador2(dx2, dy2);
         }
         
-        
+        sprite.actualizarBala();
         sprite.actualizarDisparo();
     }
     
