@@ -30,6 +30,12 @@ public class Bot extends Enemigo
         balas.add(new Bala(x + ancho / 2, y + alto / 2));
     }
     
+    public void dibujarConCamara(Graphics g, int camaraX, int camaraY)
+    {
+        g.setColor(Color.BLACK);
+        g.fillRect(x - camaraX, y - camaraY, ancho, alto);
+    }
+    
     @Override
     public void dibujar(Graphics g)
     {
@@ -86,12 +92,12 @@ public class Bot extends Enemigo
     
     @Override
     public void setX(int xE) {
-        y = xE;
+        x = xE;
     }
 
     @Override
     public void setY(int yE) {
-        x = yE;
+        y = yE;
     }
 
     @Override

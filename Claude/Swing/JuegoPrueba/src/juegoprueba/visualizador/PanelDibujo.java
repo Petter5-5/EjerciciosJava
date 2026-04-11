@@ -16,18 +16,16 @@ public class PanelDibujo extends JPanel
 {
     private Jugador1 jugador1;
     private Jugador2 jugador2;
+    private Camara camara1;
     private ArrayList<Bot> enemigos;
     
     public PanelDibujo()
     {
         this.jugador1 = new Jugador1();
         this.jugador2 = new Jugador2();
+        this.camara1 = new Camara(jugador1, Ventana.getAncho(), Ventana.getAlto());
         this.enemigos = new ArrayList<>();
         
-        enemigos.add(new Bot());
-        enemigos.add(new Bot(500, 500));
-        enemigos.add(new Bot(300, 400));
-        enemigos.add(new Bot(200, 700));
     }
     
     @Override
@@ -35,8 +33,17 @@ public class PanelDibujo extends JPanel
     {
         super.paintComponent(g);
         
+        for(Chunk chunk : ChunkManager.getChunkActivos())
+        {
+            for(Bot e : chunk.getEnemigos())
+            {
+                e.dibujarConCamara(g,camara1.getX(), camara1.getY());
+                
+            }
+        }
+        
         if(!jugador1.isDeath())
-            jugador1.dibujar(g);
+            jugador1.dibujarConCamara(g, camara1.getX(), camara1.getY());
         
         if(!jugador2.isDeath())
             jugador2.dibujar(g);
@@ -56,7 +63,8 @@ public class PanelDibujo extends JPanel
     {
         jugador1.setY((jugador1.getY() + dy));
         jugador1.setX((jugador1.getX() + dx));
-        jugador1.isOut(Ventana.getAncho(), Ventana.getAlto());
+        camara1.seguir(Ventana.getAncho(), Ventana.getAlto());
+        //jugador1.isOut(Ventana.getAncho(), Ventana.getAlto());
             
         if(Hitbox.colision(jugador1, jugador2) && jugador1.isDeath())
         {
@@ -70,7 +78,7 @@ public class PanelDibujo extends JPanel
     {
         jugador2.setY((jugador2.getY() + dy));
         jugador2.setX((jugador2.getX() + dx));
-        jugador2.isOut(Ventana.getAncho(), Ventana.getAlto());
+        //jugador2.isOut(Ventana.getAncho(), Ventana.getAlto());
         
         if(Hitbox.colision(jugador2, jugador1) && jugador2.isDeath())
         {

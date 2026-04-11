@@ -12,6 +12,12 @@ public class Jugador1 extends Jugador
     public boolean death = false;
     private Color color = Color.BLUE;
 
+    public void dibujarConCamara(Graphics g, int camaraX, int camaraY) 
+    {
+        g.setColor(color);
+        g.fillRect(x - camaraX, y - camaraY, width, height);
+    }
+    
     @Override
     public void dibujar(Graphics g) 
     {
