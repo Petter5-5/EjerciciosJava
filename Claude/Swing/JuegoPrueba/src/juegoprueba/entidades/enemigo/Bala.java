@@ -33,8 +33,6 @@ public class Bala extends Enemigo
     public void actualizar(Jugador j1, Jugador j2) 
     {
         int movimiento = 7;
-        if(dibujado)
-        {
             if(!lockIn)
             {
 
@@ -83,7 +81,6 @@ public class Bala extends Enemigo
                 x += (int)(Math.cos(angleIn) * movimiento);
                 y += (int)(Math.sin(angleIn) * movimiento);
             }
-        }
     }
 
     @Override

@@ -17,14 +17,13 @@ public class PanelDibujo extends JPanel
     private Jugador1 jugador1;
     private Jugador2 jugador2;
     private Camara camara1;
-    private ArrayList<Bot> enemigos;
+    private ChunkManager chunkManager = new ChunkManager();
     
     public PanelDibujo()
     {
         this.jugador1 = new Jugador1();
         this.jugador2 = new Jugador2();
         this.camara1 = new Camara(jugador1, Ventana.getAncho(), Ventana.getAlto());
-        this.enemigos = new ArrayList<>();
         
     }
     
@@ -38,7 +37,11 @@ public class PanelDibujo extends JPanel
             for(Bot e : chunk.getEnemigos())
             {
                 e.dibujarConCamara(g,camara1.getX(), camara1.getY());
-                
+                for(Bala b2 : e.getBalas())
+                {
+                    b2.dibujar(g);
+                    b2.setDibujado(true);
+                }
             }
         }
         
@@ -47,16 +50,6 @@ public class PanelDibujo extends JPanel
         
         if(!jugador2.isDeath())
             jugador2.dibujar(g);
-        
-        for(Bot b : enemigos)
-        {
-            b.dibujar(g);
-                for(Bala b2 : b.getBalas())
-                {
-                    b2.dibujar(g);
-                    b2.setDibujado(true);
-                }
-        }
     }
     
     public void moverJugador1(int dx, int dy)
@@ -66,11 +59,12 @@ public class PanelDibujo extends JPanel
         camara1.seguir(Ventana.getAncho(), Ventana.getAlto());
         //jugador1.isOut(Ventana.getAncho(), Ventana.getAlto());
             
-        if(Hitbox.colision(jugador1, jugador2) && jugador1.isDeath())
+        if(Hitbox.colision(jugador1, jugador2) && !jugador1.isDeath())
         {
             jugador1.setY((jugador1.getY() - dy));
             jugador1.setX((jugador1.getX() - dx)); 
         }
+        chunkManager.actualizar(jugador1.getX(), jugador1.getY());
         repaint();
     }
     
@@ -80,7 +74,7 @@ public class PanelDibujo extends JPanel
         jugador2.setX((jugador2.getX() + dx));
         //jugador2.isOut(Ventana.getAncho(), Ventana.getAlto());
         
-        if(Hitbox.colision(jugador2, jugador1) && jugador2.isDeath())
+        if(Hitbox.colision(jugador2, jugador1) && !jugador2.isDeath())
         {
             jugador2.setY((jugador2.getY() - dy));
             jugador2.setX((jugador2.getX() - dx)); 
@@ -90,39 +84,73 @@ public class PanelDibujo extends JPanel
     
     public void actualizarDisparo()
     {
-        for(Bot b : enemigos)
+        for(Chunk chunk : ChunkManager.getChunkActivos())
         {
-            b.actualizar(jugador1, jugador2);
+            for(Bot e : chunk.getEnemigos())
+            {
+                e.actualizar(jugador1, jugador2);
         
-            if(Hitbox.colision(b, jugador1))
-                jugador1.setDeath(true);
-            if(Hitbox.colision(b, jugador2))
-                jugador2.setDeath(true);
+                if(Hitbox.colision(e, jugador1))
+                    jugador1.setDeath(true);
+                if(Hitbox.colision(e, jugador2))
+                    jugador2.setDeath(true);
+            }
         }
         repaint();
     }
     
     public void actualizarBala()
     {
-        for(Bot b : enemigos)
+        for(Chunk chunk : ChunkManager.getChunkActivos())
         {
-            Iterator<Bala> it = b.getBalas().iterator();
-            while(it.hasNext())
+            for(Bot b : chunk.getEnemigos())
             {
-                Bala b2 = it.next();
-                b2.actualizar(jugador1, jugador2);
-                if(Hitbox.colision(b2, jugador1))
-                    jugador1.setDeath(true);
-                if(Hitbox.colision(b2, jugador2))
-                    jugador2.setDeath(true);
-                if(Hitbox.isOut(Ventana.getAncho(), Ventana.getAlto(), b2.getX(), b2.getY()))
+                Iterator<Bala> it = b.getBalas().iterator();
+                while(it.hasNext())
                 {
-                    it.remove();
+                    Bala b2 = it.next();
+                    b2.actualizar(jugador1, jugador2);
+                    if(Hitbox.colision(b2, jugador1))
+                        jugador1.setDeath(true);
+                    if(Hitbox.colision(b2, jugador2))
+                        jugador2.setDeath(true);
+                    if(Hitbox.isOut(Ventana.getAncho(), Ventana.getAlto(), b2.getX(), b2.getY()))
+                    {
+                        it.remove();
+                    }
                 }
             }
         }
     }
     
+    public void cargarBalasChunk()
+    {
+        for(Chunk chunk : ChunkManager.getChunkActivos())
+        {
+            for(Bot b : chunk.getEnemigos())
+            {
+                b.cargarBala();
+            }
+        }
+    }
+    
+    public void actualizarChunk()
+    {
+        for(Chunk chunk : ChunkManager.getChunkActivos())
+        {
+            Iterator<Bot> it = chunk.getEnemigos().iterator();
+            while(it.hasNext())
+            {
+                Bot e = it.next();
+                e.actualizar(jugador1, jugador2);
+                
+                if(Hitbox.colision(e, jugador1)) 
+                    jugador1.setDeath(true);
+                if(Hitbox.colision(e, jugador2))
+                    jugador2.setDeath(true);
+            }
+        }
+    }
 
     public Jugador1 getJugador1() {
         return jugador1;
@@ -130,9 +158,5 @@ public class PanelDibujo extends JPanel
 
     public Jugador2 getJugador2() {
         return jugador2;
-    }
-
-    public ArrayList<Bot> getEnemigos() {
-        return enemigos;
     }
 }

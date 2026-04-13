@@ -20,18 +20,11 @@ public class Controles implements KeyListener{
         
         //16 = 1fps, 960 = 1s
         Timer gameLoop = new Timer(16, e -> procesarMovimentos());
-        Timer balaRespwan = new Timer(960, e -> movimientoBala());
+        Timer balaRespwan = new Timer(960, e -> sprite.cargarBalasChunk());
         gameLoop.start();
         balaRespwan.start();
     }
-    
-    private void movimientoBala()
-    {
-        for(Bot b : sprite.getEnemigos())
-        {
-            b.cargarBala();
-        }
-    }
+   
     
     private void procesarMovimentos() 
     {
@@ -73,6 +66,8 @@ public class Controles implements KeyListener{
             sprite.getJugador1().setDeath(false);
             sprite.getJugador2().setDeath(false);
         }
+        
+        sprite.actualizarChunk();
         sprite.actualizarBala();
         sprite.actualizarDisparo();
     }
