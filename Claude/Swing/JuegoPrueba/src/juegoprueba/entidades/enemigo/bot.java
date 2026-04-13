@@ -25,15 +25,23 @@ public class Bot extends Enemigo
         this.balas =  new ArrayList<>(); 
     }
     
-    public void cargarBala()
+    public void cargarBala(Jugador j1, Jugador j2)
     {
-        balas.add(new Bala(x + ancho / 2, y + alto / 2));
+        balas.add(new Bala(x + ancho / 2, y + alto / 2, j1, j2));
     }
     
     public void dibujarConCamara(Graphics g, int camaraX, int camaraY)
     {
         g.setColor(Color.BLACK);
         g.fillRect(x - camaraX, y - camaraY, ancho, alto);
+    }
+    
+    public void dibujarBalasConCamara(Graphics g, int camaraX, int camaraY)
+    {
+        for (Bala b : balas) {
+            g.setColor(Color.DARK_GRAY);
+            g.fillRect(b.getX() - camaraX, b.getY() - camaraY, b.getAncho(), b.getAlto());
+        }
     }
     
     @Override

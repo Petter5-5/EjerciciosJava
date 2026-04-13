@@ -21,7 +21,7 @@ public class Chunk
     public void generar()
     {
         Random rand = new Random();
-        int cantidad = rand.nextInt(5) + 3;
+        int cantidad = rand.nextInt(2) + 1;
         for(int i = 0; i < cantidad; i++)
         {
             int ex = chunkX * 500 + rand.nextInt(500);

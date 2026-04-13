@@ -37,11 +37,7 @@ public class PanelDibujo extends JPanel
             for(Bot e : chunk.getEnemigos())
             {
                 e.dibujarConCamara(g,camara1.getX(), camara1.getY());
-                for(Bala b2 : e.getBalas())
-                {
-                    b2.dibujar(g);
-                    b2.setDibujado(true);
-                }
+                e.dibujarBalasConCamara(g, camara1.getX(), camara1.getY());
             }
         }
         
@@ -54,15 +50,15 @@ public class PanelDibujo extends JPanel
     
     public void moverJugador1(int dx, int dy)
     {
-        jugador1.setY((jugador1.getY() + dy));
-        jugador1.setX((jugador1.getX() + dx));
+        jugador1.setY(jugador1.getY() + dy);
+        jugador1.setX(jugador1.getX() + dx);
         camara1.seguir(Ventana.getAncho(), Ventana.getAlto());
         //jugador1.isOut(Ventana.getAncho(), Ventana.getAlto());
             
         if(Hitbox.colision(jugador1, jugador2) && !jugador1.isDeath())
         {
-            jugador1.setY((jugador1.getY() - dy));
-            jugador1.setX((jugador1.getX() - dx)); 
+            jugador1.setY(jugador1.getY() - dy);
+            jugador1.setX(jugador1.getX() - dx); 
         }
         chunkManager.actualizar(jugador1.getX(), jugador1.getY());
         repaint();
@@ -70,8 +66,8 @@ public class PanelDibujo extends JPanel
     
     public void moverJugador2(int dx, int dy)
     {
-        jugador2.setY((jugador2.getY() + dy));
-        jugador2.setX((jugador2.getX() + dx));
+        jugador2.setY(jugador2.getY() + dy);
+        jugador2.setX(jugador2.getX() + dx);
         //jugador2.isOut(Ventana.getAncho(), Ventana.getAlto());
         
         if(Hitbox.colision(jugador2, jugador1) && !jugador2.isDeath())
@@ -114,7 +110,8 @@ public class PanelDibujo extends JPanel
                         jugador1.setDeath(true);
                     if(Hitbox.colision(b2, jugador2))
                         jugador2.setDeath(true);
-                    if(Hitbox.isOut(Ventana.getAncho(), Ventana.getAlto(), b2.getX(), b2.getY()))
+                    if (Math.abs(b2.getX() - jugador1.getX()) > 2000 ||
+                        Math.abs(b2.getY() - jugador1.getY()) > 2000)
                     {
                         it.remove();
                     }
@@ -129,7 +126,7 @@ public class PanelDibujo extends JPanel
         {
             for(Bot b : chunk.getEnemigos())
             {
-                b.cargarBala();
+                b.cargarBala(jugador1, jugador2);
             }
         }
     }
@@ -138,16 +135,11 @@ public class PanelDibujo extends JPanel
     {
         for(Chunk chunk : ChunkManager.getChunkActivos())
         {
-            Iterator<Bot> it = chunk.getEnemigos().iterator();
-            while(it.hasNext())
+            for (Bot e : chunk.getEnemigos())
             {
-                Bot e = it.next();
                 e.actualizar(jugador1, jugador2);
-                
-                if(Hitbox.colision(e, jugador1)) 
-                    jugador1.setDeath(true);
-                if(Hitbox.colision(e, jugador2))
-                    jugador2.setDeath(true);
+                if (Hitbox.colision(e, jugador1)) jugador1.setDeath(true);
+                if (Hitbox.colision(e, jugador2)) jugador2.setDeath(true);
             }
         }
     }
