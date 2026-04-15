@@ -43,6 +43,9 @@ public class Controles implements KeyListener{
                 dx1 += movimiento;
             if(dx1 != 0 || dy1 != 0)
                 sprite.moverJugador1(dx1, dy1);
+            
+            if(teclasPulsadas.contains(KeyEvent.VK_L))
+                sprite.cargarBasico();
         }
         
         if(!sprite.getJugador2().isDeath())
@@ -66,7 +69,7 @@ public class Controles implements KeyListener{
             sprite.getJugador1().setDeath(false);
             sprite.getJugador2().setDeath(false);
         }
-        
+        sprite.ActualizarBasico();
         sprite.actualizarChunk();
         sprite.actualizarBala();
         sprite.actualizarDisparo();

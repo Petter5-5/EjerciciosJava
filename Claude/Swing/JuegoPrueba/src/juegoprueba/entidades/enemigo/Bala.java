@@ -20,7 +20,7 @@ public class Bala extends Enemigo
         this.y = y;
         
         int cx = x + ancho / 2;
-                int cy = y + alto / 2;
+        int cy = y + alto / 2;
             
                 int cx1 = j1.getX() + 25;
                 int cy1 = j1.getY() + 25;

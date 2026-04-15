@@ -1,6 +1,8 @@
 package juegoprueba.entidades.jugador;
 
 import java.awt.*;
+import java.util.ArrayList;
+import juegoprueba.entidades.habilidades.Basico;
 import juegoprueba.visualizador.Ventana;
 
 public class Jugador1 extends Jugador
@@ -11,6 +13,7 @@ public class Jugador1 extends Jugador
     private static int height = 50;
     public boolean death = false;
     private Color color = Color.BLUE;
+    private ArrayList<Basico> basicos = new ArrayList<>();
 
     public void dibujarConCamara(Graphics g, int camaraX, int camaraY) 
     {
@@ -87,5 +90,9 @@ public class Jugador1 extends Jugador
     @Override
     public void setDeath(boolean muerte) {
         death = muerte;
+    }
+
+    public ArrayList<Basico> getBasicos() {
+        return basicos;
     }
 }

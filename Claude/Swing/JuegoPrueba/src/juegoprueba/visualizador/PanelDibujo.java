@@ -10,8 +10,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import juegoprueba.entidades.enemigo.Bala;
+import juegoprueba.entidades.habilidades.Basico;
 
-
+//Falta verificar si el ataque basico sale fuera de la pantalla y eliminar al enemigo dado
 public class PanelDibujo extends JPanel
 {
     private Jugador1 jugador1;
@@ -39,6 +40,11 @@ public class PanelDibujo extends JPanel
                 e.dibujarConCamara(g,camara1.getX(), camara1.getY());
                 e.dibujarBalasConCamara(g, camara1.getX(), camara1.getY());
             }
+        }
+        
+        for(Basico b : jugador1.getBasicos())
+        {
+            b.dibujarConCamara(g, camara1.getX(), camara1.getY());
         }
         
         if(!jugador1.isDeath())
@@ -141,6 +147,19 @@ public class PanelDibujo extends JPanel
                 if (Hitbox.colision(e, jugador1)) jugador1.setDeath(true);
                 if (Hitbox.colision(e, jugador2)) jugador2.setDeath(true);
             }
+        }
+    }
+    
+    public void cargarBasico()
+    {
+        jugador1.getBasicos().add(new Basico(jugador1, ChunkManager.getChunkActivos()));
+    }
+    
+    public void ActualizarBasico()
+    {
+        for(Basico b : jugador1.getBasicos())
+        {
+            b.actualizar();
         }
     }
 
