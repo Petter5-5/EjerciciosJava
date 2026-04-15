@@ -13,16 +13,16 @@ public class Basico extends Habilidad
     private int y;
     private int ancho = 4;
     private int alto = 4;
-    private double angleIn;
+    private double angleIn = 0;
     
     public Basico(Jugador j, Collection<Chunk> chunks)
     {
         
-        this.x = j.getX();
-        this.y = j.getY();
+        this.x = j.getX() + j.getWidth()/ 2;
+        this.y = j.getY() + j.getWidth()/ 2;
         
-        int cx = x + j.getX() / 2;
-        int cy = y + j.getX() / 2;
+        int cx = x;
+        int cy = y;
         
         double distFinal = 999999;
         int targetX = 0;
@@ -62,4 +62,13 @@ public class Basico extends Habilidad
         x += (int)(Math.cos(angleIn) * 13);
         y += (int)(Math.sin(angleIn) * 13);
     }
+
+    @Override
+    public int getX() {return x;}
+    @Override
+    public int getY() {return y;}
+    @Override
+    public int getAlto() {return alto;}
+    @Override
+    public int getAncho() {return ancho;}
 }

@@ -20,7 +20,7 @@ public class Controles implements KeyListener{
         
         //16 = 1fps, 960 = 1s
         Timer gameLoop = new Timer(16, e -> procesarMovimentos());
-        Timer balaRespwan = new Timer(960, e -> sprite.cargarBalasChunk());
+        Timer balaRespwan = new Timer(9600, e -> sprite.cargarBalasChunk());
         gameLoop.start();
         balaRespwan.start();
     }

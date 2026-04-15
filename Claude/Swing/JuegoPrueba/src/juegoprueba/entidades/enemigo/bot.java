@@ -12,6 +12,7 @@ public class Bot extends Enemigo
     private int x = (Ventana.getAncho() / 2) - 37;
     private int y = (Ventana.getAlto() / 2) - 37;
     private ArrayList<Bala> balas;
+    private boolean muerte = false;
     
     public Bot()
     {
@@ -97,38 +98,21 @@ public class Bot extends Enemigo
         y += (int)(Math.sin(angle) * movimiento);
         
     }
+ 
     
     @Override
-    public void setX(int xE) {
-        x = xE;
-    }
-
+    public void setX(int xE) {x = xE;}
     @Override
-    public void setY(int yE) {
-        y = yE;
-    }
-
+    public void setY(int yE) {y = yE;}
     @Override
-    public int getX() {
-        return x;
-    }
-
+    public int getX() {return x;}
     @Override
-    public int getY() {
-        return y;
-    }
-
+    public int getY() {return y;}
     @Override
-    public int getAncho() {
-        return ancho;
-    }
-
+    public int getAncho() {return ancho;}
     @Override
-    public int getAlto() {
-        return alto;
-    }
-
-    public ArrayList<Bala> getBalas() {
-        return balas;
-    }
+    public int getAlto() {return alto;}
+    public ArrayList<Bala> getBalas() {return balas;}
+    public boolean isMuerte() {return muerte;}
+    public void setMuerte(boolean muerte) {this.muerte = muerte;}
 }

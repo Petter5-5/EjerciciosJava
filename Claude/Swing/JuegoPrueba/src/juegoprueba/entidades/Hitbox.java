@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import juegoprueba.entidades.enemigo.Bala;
 import juegoprueba.entidades.enemigo.Bot;
+import juegoprueba.entidades.habilidades.Habilidad;
 
 public class Hitbox 
 {
@@ -145,6 +146,14 @@ public class Hitbox
     {
         Rectangle rb = new Rectangle(b.getX(), b.getY(), b.getAncho(), b.getAlto());
         Rectangle rj = new Rectangle(j.getX(), j.getY(), j.getWidth(), j.getHeight());
+        return rb.intersects(rj);
+    }
+    
+    //BOOTT MUERTOOO
+    public static boolean colision(Bot b, Habilidad h)
+    {
+        Rectangle rb = new Rectangle(b.getX(), b.getY(), b.getAncho(), b.getAlto());
+        Rectangle rj = new Rectangle(h.getX(), h.getY(), h.getAncho(), h.getAlto());
         return rb.intersects(rj);
     }
 }

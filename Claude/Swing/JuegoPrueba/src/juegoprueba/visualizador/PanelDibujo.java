@@ -12,7 +12,6 @@ import java.util.Iterator;
 import juegoprueba.entidades.enemigo.Bala;
 import juegoprueba.entidades.habilidades.Basico;
 
-//Falta verificar si el ataque basico sale fuera de la pantalla y eliminar al enemigo dado
 public class PanelDibujo extends JPanel
 {
     private Jugador1 jugador1;
@@ -97,7 +96,9 @@ public class PanelDibujo extends JPanel
                 if(Hitbox.colision(e, jugador2))
                     jugador2.setDeath(true);
             }
+            chunk.getEnemigos().removeIf(e -> e.isMuerte());
         }
+        
         repaint();
     }
     
@@ -160,7 +161,19 @@ public class PanelDibujo extends JPanel
         for(Basico b : jugador1.getBasicos())
         {
             b.actualizar();
+                for(Chunk chunk : ChunkManager.getChunkActivos())
+                {
+                    for (Bot e : chunk.getEnemigos())
+                    {
+                        if (Hitbox.colision(e, b)) 
+                        {
+                            e.setMuerte(true);
+                        }
+                    }
+                }
         }
+        jugador1.getBasicos().removeIf(b -> Math.abs(b.getX() - jugador1.getX()) > 2000 ||
+                    Math.abs(b.getY() - jugador1.getY()) > 2000);
     }
 
     public Jugador1 getJugador1() {
