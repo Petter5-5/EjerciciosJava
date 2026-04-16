@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import juegoprueba.entidades.enemigo.Bala;
 import juegoprueba.entidades.habilidades.Basico;
+import juegoprueba.entidades.habilidades.Espada;
 
 public class PanelDibujo extends JPanel
 {
@@ -18,6 +19,7 @@ public class PanelDibujo extends JPanel
     private Jugador2 jugador2;
     private Camara camara1;
     private ChunkManager chunkManager = new ChunkManager();
+    private Espada espada1 = new Espada();
     
     public PanelDibujo()
     {
@@ -51,6 +53,8 @@ public class PanelDibujo extends JPanel
         
         if(!jugador2.isDeath())
             jugador2.dibujar(g);
+        
+        espada1.dibujarConCamara(g, camara1.getX(), camara1.getY());
     }
     
     public void moverJugador1(int dx, int dy)
@@ -175,7 +179,21 @@ public class PanelDibujo extends JPanel
         jugador1.getBasicos().removeIf(b -> Math.abs(b.getX() - jugador1.getX()) > 2000 ||
                     Math.abs(b.getY() - jugador1.getY()) > 2000);
     }
-
+    
+    //ESPADA ->
+    public void actualizarEspada()
+    {
+        espada1.actualizar(jugador1, ChunkManager.getChunkActivos());
+    }
+    
+    public void atacarEspada()
+    {
+        for(Chunk chunk : ChunkManager.getChunkActivos()){
+            chunk.getEnemigos().removeIf(espada1::golpea);
+        }
+    }
+    //<- ESPADA
+    
     public Jugador1 getJugador1() {
         return jugador1;
     }
