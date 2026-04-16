@@ -2,7 +2,11 @@ package juegoprueba.entidades.habilidades;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.util.Collection;
+import javax.swing.ImageIcon;
 import juegoprueba.entidades.enemigo.Bot;
 import juegoprueba.entidades.jugador.Jugador;
 import juegoprueba.visualizador.Chunk;
@@ -13,11 +17,10 @@ public class Basico extends Habilidad
     private int y;
     private int ancho = 4;
     private int alto = 4;
-    private double angleIn = 0;
+    private static double angleIn = 0;
     
     public Basico(Jugador j, Collection<Chunk> chunks)
     {
-        
         this.x = j.getX() + j.getWidth()/ 2;
         this.y = j.getY() + j.getWidth()/ 2;
         
@@ -71,4 +74,5 @@ public class Basico extends Habilidad
     public int getAlto() {return alto;}
     @Override
     public int getAncho() {return ancho;}
+    public static double getAngleIn() {return angleIn;}
 }
