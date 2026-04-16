@@ -17,28 +17,10 @@ public class Jugador1 extends Jugador
     private Color color = Color.BLUE;
     private ArrayList<Basico> basicos = new ArrayList<>();
     
-    //PISTOLA
-    private int anchoSprite = 40;
-    private int altoSprite = 40;
-    private ImageIcon icon = new ImageIcon(getClass().getResource("/juegoprueba/resource/sprite/plagun.png"));
-    private Image sprite = icon.getImage();
-    
     public void dibujarConCamara(Graphics g, int camaraX, int camaraY) 
     {
         g.setColor(color);
         g.fillRect(x - camaraX, y - camaraY, width, height);
-        
-        Graphics2D g2d = (Graphics2D) g;
-        
-        int drawX = x - camaraX - anchoSprite/2;
-        int drawY = y - camaraY - altoSprite/2;
-        
-        AffineTransform original = g2d.getTransform();
-        
-        g2d.rotate(Basico.getAngleIn(),x - camaraX, y - camaraY);
-        g2d.drawImage(sprite, drawX, drawY, anchoSprite, altoSprite, null);
-        
-        g2d.setTransform(original);
     }
     
     @Override

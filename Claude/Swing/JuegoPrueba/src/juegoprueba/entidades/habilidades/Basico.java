@@ -17,10 +17,19 @@ public class Basico extends Habilidad
     private int y;
     private int ancho = 4;
     private int alto = 4;
-    private static double angleIn = 0;
+    private double angleIn = 0;
+    
+    //PISTOLA
+    private Jugador j;
+    private int anchoSprite = 40;
+    private int altoSprite = 40;
+    private ImageIcon icon = new ImageIcon(getClass().getResource("/juegoprueba/resource/sprite/plagun.png"));
+    private Image sprite = icon.getImage();
     
     public Basico(Jugador j, Collection<Chunk> chunks)
     {
+        this.j = j;
+        
         this.x = j.getX() + j.getWidth()/ 2;
         this.y = j.getY() + j.getWidth()/ 2;
         
@@ -56,6 +65,18 @@ public class Basico extends Habilidad
     @Override
     public void dibujarConCamara(Graphics g ,int camaraX, int camaraY) 
     {
+        Graphics2D g2d = (Graphics2D) g;
+        
+        int drawX = j.getX() - camaraX - anchoSprite/2;
+        int drawY = j.getY() - camaraY - altoSprite/2;
+        
+        AffineTransform original = g2d.getTransform();
+        
+        g2d.rotate(angleIn,j.getX() - camaraX, j.getY() - camaraY);
+        g2d.drawImage(sprite, drawX, drawY, anchoSprite, altoSprite, null);
+        
+        g2d.setTransform(original);
+        
         g.setColor(Color.RED);
         g.fillRect(x - camaraX, y - camaraY, ancho, alto);
     }
@@ -74,5 +95,6 @@ public class Basico extends Habilidad
     public int getAlto() {return alto;}
     @Override
     public int getAncho() {return ancho;}
-    public static double getAngleIn() {return angleIn;}
-}
+    public double getAngleIn() {return angleIn;}
+ }
+
